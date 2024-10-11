@@ -1,2 +1,2 @@
-# Recall-IQ-Teams-Meetng-Assistant
-Recall-IQ-Teams-Meetng-Assistant
+# Recall-IQ-Teams-Meeting-Assistant
+Recall-IQ-Teams-Meeting-Assistant
