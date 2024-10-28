@@ -1,0 +1,56 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.17",
+    "version": "1.0.0",
+    "id": "7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f",
+    "developer": {
+        "name": "Teams App, Inc.",
+        "websiteUrl": "https://5926-160-202-38-191.ngrok-free.app",
+        "privacyUrl": "https://5926-160-202-38-191.ngrok-free.app/privacy",
+        "termsOfUseUrl": "https://5926-160-202-38-191.ngrok-free.app/termsofuse"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "RecallIQ",
+        "full": "RecallIQ"
+    },
+    "description": {
+        "short": "RecallIQ analyzes meeting transcriptions and assists with related queries.",
+        "full":  "RecallIQ is a comprehensive team meeting tab designed to automatically analyze meeting transcriptions. It provides detailed insights and summaries of discussions, making it easier for teams to reference important points. The integrated RecallIQ bot allows users to ask questions and retrieve information about past meetings, ensuring that all queries related to analyzed meetings are quickly and accurately answered. This solution improves meeting efficiency and knowledge retention, providing valuable context-aware assistance."
+    },
+    "accentColor": "#FFFFFF",
+    "bots": [],
+    "composeExtensions": [],
+    "configurableTabs": [
+        {
+            "configurationUrl": "https://5926-160-202-38-191.ngrok-free.app/config",
+            "canUpdateConfiguration": true,
+            "scopes": [
+                "team",
+                "groupChat"
+              ],
+              "context": [
+                "channelTab",
+                "privateChatTab",
+                "meetingChatTab",
+                "meetingDetailsTab",
+                "meetingSidePanel"
+              ]
+        }
+    ],
+    "staticTabs": [],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "5926-160-202-38-191.ngrok-free.app"
+    ],
+    "webApplicationInfo": {
+        "id": "7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f",
+        "resource": "api://5926-160-202-38-191.ngrok-free.app/7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f"
+    }
+}
