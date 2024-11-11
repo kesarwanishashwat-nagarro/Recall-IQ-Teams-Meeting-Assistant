@@ -62,12 +62,16 @@ embedding_service = EmbeddingService(app)
 # Create a subscription for meeting transcripts
 @app.route('/subscribe', methods=['POST'])
 def subscribe_to_transcripts():
-    graph_service = GraphService()
     data = request.json
     access_token = data['token']
-    meeting_id = data['meetingId']
+    join_url = data['JoinWebUrl']
+    user_id = data['userId'] or "1ada3a13-67fa-47e0-928f-af150f8c0e29"
+    print(f"subscribe payload data - {data}")
+    graph_service = GraphService(access_token)
+    meeting_id = graph_service.get_meeting_id(join_url, user_id)
+    print(f"meeting id - {meeting_id}")
     graph_service_instances[meeting_id] = graph_service
-    return graph_service.subscripe_meeting_transcripts(access_token, meeting_id)
+    return graph_service.subscribe_meeting_transcripts(meeting_id)
     # access_token = get_access_token()
     # data = request.json
     # chat_query = request.args.get('query')

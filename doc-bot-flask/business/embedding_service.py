@@ -7,7 +7,6 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain_openai import OpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from azure.storage.blob import BlobServiceClient
-import faiss
 
 class EmbeddingService:
     blob_service_client = None
