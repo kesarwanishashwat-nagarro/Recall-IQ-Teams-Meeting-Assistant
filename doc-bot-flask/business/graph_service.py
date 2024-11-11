@@ -21,7 +21,7 @@ class GraphService:
                                  headers=headers)
         data = response.json()
         value = data["value"]
-        return value.id
+        return value[0].id
         
     
     def subscribe_meeting_transcripts(self, meeting_id):
