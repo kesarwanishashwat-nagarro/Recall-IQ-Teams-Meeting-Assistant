@@ -7,7 +7,7 @@ export class TeamsBot extends TeamsActivityHandler {
     ans: string
   }[] = [];
   aadObjectId:string;
-  apiUrl = `https://f58c-2409-40e3-189-aaab-d136-473c-84fc-a11c.ngrok-free.app/query`;
+  apiUrl = `https://recall-iq.azurewebsites.net/query`;
   constructor() {
     super();
     this.onMessage(async (context, next) => {
