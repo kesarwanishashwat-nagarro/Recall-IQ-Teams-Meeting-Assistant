@@ -112,6 +112,7 @@ def subscribe_to_transcripts():
 @app.route('/notifications', methods=['POST'])
 def handle_notifications():
     #VjIjIzExYWRhM2ExMy02N2ZhLTQ3ZTAtOTI4Zi1hZjE1MGY4YzBlMjkzYTY2M2M2OC1mMmQ5LTQ3ZjAtYTNlYy00ZmQwMzJiY2IzMzQwNDAwMDAwMDgyMDBFMDAwNzRDNUI3MTAxQTgyRTAwODAwMDAwMDAwNWUzMmM2OTVlZjFhZGIwMTAwMDAwMDAwMDAwMDAwMDAxMDAwMDAwMDUwNDNkNzQyYTgzOTk2NDZhODI4ZmJiODRiY2JjNDgxIyNmNjMxMjc1MC00MDJiLTRlMjAtODQyOS0yY2M2ZWE2MmExZmQ
+    print("notifications webhook called")
     # Check if this is a validation request
     validation_token = request.args.get('validationToken')
     if validation_token:
@@ -124,8 +125,10 @@ def handle_notifications():
     if 'value' in data:
         for notification in data['value']:
             # Extract the transcript_id from resourceData
-            transcript_id = notification.get('resourceData', {}).get('id')
-            meeting_id = notification.get('resourceData', {}).get('meeting_id')
+            notificationData = notification.get('resourceData', {})
+            print(f"notificationData: {notificationData}")
+            transcript_id = notificationData.get('id')
+            meeting_id = notificationData.get('meeting_id')
             graph_service = graph_service_instances['meeting_id']
             if graph_service.is_valid():
                 transcript = graph_service.download_transcript_content(meeting_id, transcript_id)
