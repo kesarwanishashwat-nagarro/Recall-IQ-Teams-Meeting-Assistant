@@ -81,8 +81,9 @@ class GraphService:
                 response = requests.get(url, headers=headers)
                 if response.status_code == 200:
                     transcript_content = response.json()
-                    
+                    print(f"Transcription downloaded {transcript_content}")
                     return transcript_content
                 else:
+                    print(f"Transcription download failed {response.status_code}")
                     raise Exception(f"Failed to download transcript: {response.status_code}")
         
