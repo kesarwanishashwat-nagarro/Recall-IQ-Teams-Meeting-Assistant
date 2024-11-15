@@ -35,6 +35,7 @@
   }
 
   function onJoinUrlChange(event){
+    subSuccess.style.display = 'none';
     const url = event.target.value;
     if(url){
       btnSubmit.disabled = false;
@@ -45,12 +46,21 @@
 
   async function onBtnSubmit(){
     if(clientSideToken){
+      loading.style.display = 'block';
+      btnSubmit.disabled = true;
       try {
         await subscribeMeetingEvents(clientSideToken)
         urlContent.style.display = 'none';
-        subSuccess.style.display = 'block';
+        subSuccess.innerText = 'You have subscribed to this meeting transcripts.';
       } catch(e){
+        btnSubmit.disabled = false;
+        urlContent.style.display = 'block';
         console.error(e);
+        subSuccess.innerText = e.details.error.message || 'Some issue in meeting subscription';
+      }
+      finally {
+        loading.style.display = 'none';
+        subSuccess.style.display = 'block';
       }
     }
   }
@@ -83,7 +93,7 @@
     })();
 
     // Request the user profile from our web service
-    const response = await fetch('http://localhost:5000/subscribe', {
+    const response = await fetch('https://recall-iq.azurewebsites.net/subscribe', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

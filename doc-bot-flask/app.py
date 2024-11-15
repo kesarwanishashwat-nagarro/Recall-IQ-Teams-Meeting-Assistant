@@ -111,10 +111,10 @@ def subscribe_to_transcripts():
 # Endpoint to receive transcript notifications
 @app.route('/notifications', methods=['POST'])
 def handle_notifications():
-    #VjIjIzExYWRhM2ExMy02N2ZhLTQ3ZTAtOTI4Zi1hZjE1MGY4YzBlMjkzYTY2M2M2OC1mMmQ5LTQ3ZjAtYTNlYy00ZmQwMzJiY2IzMzQwNDAwMDAwMDgyMDBFMDAwNzRDNUI3MTAxQTgyRTAwODAwMDAwMDAwNWUzMmM2OTVlZjFhZGIwMTAwMDAwMDAwMDAwMDAwMDAxMDAwMDAwMDUwNDNkNzQyYTgzOTk2NDZhODI4ZmJiODRiY2JjNDgxIyNmNjMxMjc1MC00MDJiLTRlMjAtODQyOS0yY2M2ZWE2MmExZmQ
     print("notifications webhook called")
     # Check if this is a validation request
     validation_token = request.args.get('validationToken')
+    print(f"validation_token: {validation_token}")
     if validation_token:
         # Return the validation token in the response for the subscription to be validated
         return validation_token

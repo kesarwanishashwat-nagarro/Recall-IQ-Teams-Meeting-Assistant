@@ -65,8 +65,10 @@ class GraphService:
         response = requests.post(f"{current_app.config['GRAPH_API_ENDPOINT']}/subscriptions", headers=headers, json=subscription_data)
         
         if response.status_code == 201:
+            print(f"Subscription created successfully {response.json()}")
             return jsonify({"message": "Subscription created successfully", "data": response.json()}), 201
         else:
+            print(f"Failed to create subscription {response.json()}")
             return jsonify({"error": "Failed to create subscription", "details": response.json()}), response.status_code
 
     def download_transcript_content(self, transcript_id, meeting_id, stored_transcripts):
