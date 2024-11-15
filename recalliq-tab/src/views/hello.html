@@ -9,7 +9,6 @@
       integrity="sha384-WSG/sWulIv7rel5TnFlH8JTpxl2OxzZh9Lux2mIzBFiTRLFvMBeFv9VURu/3vQdx"
       crossorigin="anonymous"
     ></script>
-    <script src="/static/scripts/teamsapp.js"></script>
     <title>Microsoft Teams Tab</title>
   </head>
 
@@ -18,8 +17,22 @@
     <div id="notice" style="margin-bottom: 20px;"></div>
       <p><b>Note:</b> Please enable transcription during the meeting by going to <b>More -> Recording -> Transcription</b>.</p>
     </div>
+    <h4 id="loading">Loading Token...</h4>
+    <h4 id="sub-success">You have subscribed to this meeting transcripts.</h4>
+    <div id="url-content">
+      <div class="row">
+        <label for="joinUrlTxtArea">Meeting Join URL - </label>
+      </div>
+      <div class="row">
+        <textarea id="joinUrlTxtArea" name="join_url"></textarea>
+      </div>
+      <div class="row">
+        <button id="btn-submit" type="submit" disabled="true">Allow Transcription</button>
+      </div>
+    </div>
     <div id="content">
     </div>
+    <script src="/static/scripts/teamsapp.js"></script>
     <script type="text/javascript">
       microsoftTeams.appInitialization.notifySuccess();
     </script>

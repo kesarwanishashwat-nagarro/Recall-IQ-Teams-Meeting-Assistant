@@ -2,12 +2,12 @@
     "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
     "manifestVersion": "1.17",
     "version": "1.0.0",
-    "id": "7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f",
+    "id": "${{TEAMS_APP_ID}}",
     "developer": {
         "name": "Teams App, Inc.",
-        "websiteUrl": "https://5926-160-202-38-191.ngrok-free.app",
-        "privacyUrl": "https://5926-160-202-38-191.ngrok-free.app/privacy",
-        "termsOfUseUrl": "https://5926-160-202-38-191.ngrok-free.app/termsofuse"
+        "websiteUrl": "${{TAB_ENDPOINT}}",
+        "privacyUrl": "${{TAB_ENDPOINT}}/privacy",
+        "termsOfUseUrl": "${{TAB_ENDPOINT}}/termsofuse"
     },
     "icons": {
         "color": "color.png",
@@ -26,7 +26,7 @@
     "composeExtensions": [],
     "configurableTabs": [
         {
-            "configurationUrl": "https://5926-160-202-38-191.ngrok-free.app/config",
+            "configurationUrl": "${{TAB_ENDPOINT}}/config",
             "canUpdateConfiguration": true,
             "scopes": [
                 "team",
@@ -47,10 +47,10 @@
         "messageTeamMembers"
     ],
     "validDomains": [
-        "5926-160-202-38-191.ngrok-free.app"
+        "${{TAB_DOMAIN}}"
     ],
     "webApplicationInfo": {
-        "id": "7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f",
-        "resource": "api://5926-160-202-38-191.ngrok-free.app/7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f"
+        "id": "${{TEAMS_APP_ID}}",
+        "resource": "api://${{TAB_DOMAIN}}/${{TEAMS_APP_ID}}"
     }
 }

@@ -41,6 +41,7 @@ app.use(express.json());
 // };
 
 const fetchAccessToken = async (tenantID, clientToken) => {
+  console.log("fetchAccessToken called")
     const url = "https://login.microsoftonline.com/" + tenantID + "/oauth2/v2.0/token";
     const params = {
         client_id: process.env.CLIENT_ID,

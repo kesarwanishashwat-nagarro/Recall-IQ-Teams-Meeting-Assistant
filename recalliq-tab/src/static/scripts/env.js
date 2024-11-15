@@ -5,7 +5,7 @@
 // needed at runtime. Do not plug in your project values.
 
 export const env = {
-    CLIENT_ID: "7b00202d-c0f9-4c3b-b5b8-c8795a7deb8f",
+    CLIENT_ID: "ebf953d7-d919-4ccf-b524-f9e51cab8472",
     SCOPES: "https://graph.microsoft.com/user.read https://graph.microsoft.com/files.read",
     INTERACTION_REQUIRED_STATUS_TEXT: "interaction_required"
 }

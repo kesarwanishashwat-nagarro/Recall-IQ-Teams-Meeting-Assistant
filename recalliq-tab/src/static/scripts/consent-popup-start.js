@@ -11,6 +11,7 @@ microsoftTeams.getContext((context) => {
         tenant: tenant_id,
         client_id: client_id,
         response_type: "code", // We won't use the auth code, just forcing consent
+        response_mode: "query",
         scope: "https://graph.microsoft.com/user.read https://graph.microsoft.com/files.read",
         redirect_uri: window.location.origin + "/consent-popup-end.html"
     }

@@ -1,6 +1,17 @@
 (function () {
   "use strict";
-
+  var clientSideToken = '';
+  var txtArea = document.getElementById('joinUrlTxtArea');
+  var btnSubmit = document.getElementById('btn-submit');
+  var loading = document.getElementById('loading');
+  var subSuccess = document.getElementById('sub-success');
+  var urlContent = document.getElementById('url-content');
+  if(btnSubmit){
+    btnSubmit.addEventListener('click', onBtnSubmit)
+  }
+  if(txtArea){
+    txtArea.addEventListener('input', onJoinUrlChange)
+  }
   // Call the initialize API first
   microsoftTeams.app.initialize().then(function () {
     microsoftTeams.app.getContext().then(function (context) {
@@ -13,12 +24,46 @@
     displayUI();
   });
 
+  function validURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+  }
+
+  function onJoinUrlChange(event){
+    const url = event.target.value;
+    if(url){
+      btnSubmit.disabled = false;
+    } else {
+      btnSubmit.disabled = true;
+    }
+  }
+
+  async function onBtnSubmit(){
+    if(clientSideToken){
+      try {
+        await subscribeMeetingEvents(clientSideToken)
+        urlContent.style.display = 'none';
+        subSuccess.style.display = 'block';
+      } catch(e){
+        console.error(e);
+      }
+    }
+  }
+
   // Get a client side token from Teams
   async function getClientSideToken() {
     return new Promise((resolve, reject) => {
       microsoftTeams.authentication.getAuthToken({
         successCallback: (result) => {
           console.log("Auth Token received successfully.");
+          console.log(result);
+          loading.style.display = 'none';
+          urlContent.style.display = 'block';
           resolve(result);
         },
         failureCallback: (error) => {
@@ -27,6 +72,36 @@
         }
       });
     });
+  }
+
+  async function subscribeMeetingEvents(clientSideToken){
+    console.log(txtArea.value)
+    const context = await (() => {
+      return new Promise((resolve) => {
+        microsoftTeams.getContext(context => resolve(context));
+      })
+    })();
+
+    // Request the user profile from our web service
+    const response = await fetch('http://localhost:5000/subscribe', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'userId': "1ada3a13-67fa-47e0-928f-af150f8c0e29",
+        'token': clientSideToken,
+        'JoinWebUrl': txtArea.value
+      }),
+      cache: 'default'
+    });
+
+    if (response.ok) {
+      return;
+    } else {
+      const error = await response.json();
+      throw (error);
+    }
   }
 
   // Get the user profile from our web service
@@ -68,8 +143,8 @@
   async function displayUI() {
     const displayElement = document.getElementById('content');
     try {
-      const clientSideToken = await getClientSideToken();
-      const userProfile = await getGraphAccessToken(clientSideToken);
+      clientSideToken = await getClientSideToken();
+      // const userProfile = await getGraphAccessToken(clientSideToken);
 
       // displayElement.innerHTML = `
       //   <h1>${userProfile.access_token}</h1>

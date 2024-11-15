@@ -57,15 +57,17 @@ embedding_service = EmbeddingService(app)
 #         return response_json['access_token']
 #     else:
 #         raise Exception(f"Unable to get access token: {response_json}")
+
     
     
 # Create a subscription for meeting transcripts
 @app.route('/subscribe', methods=['POST'])
 def subscribe_to_transcripts():
     data = request.json
-    access_token = data['token']
-    join_url = data['JoinWebUrl']
+    client_token = data['token']
     user_id = data['userId'] or "1ada3a13-67fa-47e0-928f-af150f8c0e29"
+    access_token = GraphService.get_access_token_from_client(client_token)
+    join_url = data['JoinWebUrl']
     print(f"subscribe payload data - {data}")
     graph_service = GraphService(access_token)
     meeting_id = graph_service.get_meeting_id(join_url, user_id)

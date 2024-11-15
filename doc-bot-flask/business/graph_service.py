@@ -11,6 +11,28 @@ class GraphService:
     
     def __init__(self, access_token):
         self.__class__.access_token = access_token
+        
+    @staticmethod
+    def get_access_token_from_client(client_token):
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded" #"application/json"
+        }
+        params = {
+            "client_id" : "ebf953d7-d919-4ccf-b524-f9e51cab8472",
+            "client_secret": "fsD8Q~nzGtkB64LP7ntA4W85Pk3Pc0l~y9AwtbMb",
+            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            "assertion": client_token,
+            "requested_token_use": "on_behalf_of",
+            "scope": "OnlineMeetingTranscript.Read.All OnlineMeetingArtifact.Read.All OnlineMeetings.Read"
+            
+        }
+        response = requests.post(f"https://login.microsoftonline.com/3a663c68-f2d9-47f0-a3ec-4fd032bcb334/oauth2/v2.0/token",
+                                 data=params,
+                                 headers=headers)
+        data = response.json()
+        access_token = data["access_token"]
+        return access_token
+        
     
     def get_meeting_id(self, join_web_url, user_id):
         headers = {
@@ -21,7 +43,8 @@ class GraphService:
                                  headers=headers)
         data = response.json()
         value = data["value"]
-        return value[0].id
+        meetingObj = value[0]
+        return meetingObj['id']
         
     
     def subscribe_meeting_transcripts(self, meeting_id):
