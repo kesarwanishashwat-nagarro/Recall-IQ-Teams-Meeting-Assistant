@@ -121,6 +121,7 @@ def handle_notifications():
     
     # print(request.args)
     data = request.get_json()
+    print(f"data: {data}")
     # zip
     if 'value' in data:
         for notification in data['value']:
